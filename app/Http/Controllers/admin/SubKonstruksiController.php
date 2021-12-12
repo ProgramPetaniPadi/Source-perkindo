@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\DataPerusahaan;
-use App\Models\SubKonstruksi;
 use Illuminate\Http\Request;
+use App\Models\SubKonstruksi;
+use App\Models\DataPerusahaan;
+use App\Models\SubKlasifikasiSBUKonstruksi;
+use App\Http\Controllers\Controller;
+use App\Models\KlasifikasiSBUKonstruksi;
 
 class SubKonstruksiController extends Controller
 
@@ -17,10 +19,9 @@ class SubKonstruksiController extends Controller
      */
     public function index()
     {
-        $items = SubKonstruksi::all();
-        $anggota = DataPerusahaan::get()->count();
+        $items = SubKonstruksi::with('data_perusahaan')->get();
         return view('pages.admin.sub_konstruksi.index', [
-            'items' => $items, 'anggota' => $anggota
+            'items' => $items,
         ]);
     }
 
@@ -32,11 +33,19 @@ class SubKonstruksiController extends Controller
     public function create()
     {
         $anggota = DataPerusahaan::all();
+        $klasifikasi = KlasifikasiSBUKonstruksi::all();
         $item = SubKonstruksi::all();
         return view('pages.admin.sub_konstruksi.create', [
             'anggota' => $anggota,
             'item' => $item,
+            'klasifikasi' => $klasifikasi
         ]);
+    }
+
+    public function myformAjax($id)
+    {
+        $sub = SubKlasifikasiSBUKonstruksi::where("klasifikasi_sbu_konstruksi_id", $id)->lists("sub_klasifikasi", "id");
+        return json_encode($sub);
     }
 
     /**

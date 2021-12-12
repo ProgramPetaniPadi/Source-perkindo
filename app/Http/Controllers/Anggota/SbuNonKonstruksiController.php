@@ -1,33 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Anggota;
 
-use App\Models\Berita;
-use App\Models\DataPengurus;
-use Illuminate\Http\Request;
-use App\Models\KotaKabupaten;
-use App\Models\DataPerusahaan;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class SbuNonKonstruksiController extends Controller
 {
-    /** 
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $anggota = DataPerusahaan::get()->count();
-        $pengurus = DataPengurus::get()->count();
-        $kota_kabupaten = KotaKabupaten::get()->count();
-        $berita = Berita::get()->count();
-        return view('pages.admin.dashboard', [
-            'anggota' => $anggota, 'pengurus' => $pengurus,
-            'kota_kabupaten' => $kota_kabupaten, 'berita' => $berita
-
-
-        ]);
+        return view('pages.anggota.sbu_nonkonstruksi.index');
     }
 
     /**

@@ -68,16 +68,64 @@
                         <img src="{{ Storage::url($item->logo) }}" width="200px">
                     </td>
                 </tr>
-                <tr>
-                    <th>Masa Berlaku KTA</th>
-                    <td> {{ $kta->kta_berlaku_sampai }} </td>
-                </tr>
-                <tr>
-                    <th>file KTA</th>
-                    <td>
-                        <img src="{{ Storage::url($kta->file_kta) }}" width="200px">
-                    </td>
-                </tr>
+
+
+            </table>
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">File KTA Anggota</h1>
+            </div>
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{session('success')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+
+                    <tr>
+                        <th>No</th>
+                        <th>Masa Berlaku KTA</th>
+                        <th>file KTA</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php
+                        $i = 1;
+                        ?>
+                    @forelse ($kta as $kta )
+                    <tr>
+                        <td>{{ $i++ }}</td>
+                        <td>{{ $kta->kta_berlaku_sampai }}</td>
+                        <td> <img src="{{ Storage::url($kta->file_kta) }}" width="50px">
+
+                            <a href="{{ route('data_perusahaan.editkta', $kta->id) }}" class="btn btn-info"
+                                data-toggle="tooltip" title="edit perusahaan!" data-placement="top">
+                                <i class="fa fa-pencil-alt"></i>
+                            </a>
+
+                            <form action="{{ route('data_perusahaan.destroyKta', $kta->id) }}" method="POST"
+                                class="d-inline" onclick="return confirm('Yakin ingin menghapus?');">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    @empty
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            Tidak Ada Data
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
             </table>
             <a href="{{ route('data_perusahaan.index') }}" class="btn btn-primary">Kembali </a>
         </div>

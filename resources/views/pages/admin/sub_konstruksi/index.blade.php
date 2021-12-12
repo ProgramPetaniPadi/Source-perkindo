@@ -45,11 +45,14 @@
 
                             <td>{{ $i++ }}</td>
                             <td> {{$item->no_seri_formulir}}</td>
-                            <td>{{ $item->anggota_id}}</td>
+                            <td>{{ $item->data_perusahaan['nomor_keanggotaan']}}</td>
                             <td>{{ $item->tanggal_masuk }}</td>
                             <td>{{ $item->berlaku_sampai }}</td>
 
                             <td>
+                                <a href="{{ route('sub_konstruksi.create') }}" class="btn btn-sm btn-primary shadow-sm">
+                                    <i class="fas fa-plus fa-sm text-white-50"></i> Tambah Sub Konstruksi
+                                </a>
                                 <a href="{{ route( 'sub_konstruksi.edit', $item->id) }}" class="btn btn-info">
                                     <i class="fa fa-pencil-alt"></i>
                                 </a>

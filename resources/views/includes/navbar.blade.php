@@ -15,6 +15,7 @@
                 <a href="#hubungi" class="nav-item nav-link ">Kontak</a>
                 <a href="/keanggotaan1" class="nav-item nav-link ">Keanggotaan</a>
                 <a href="/informasi" class="nav-item nav-link">Pengurus</a>
+                <a href="/LoginAnggota" class="nav-item nav-link">Login</a>
 
             </div>
         </div>

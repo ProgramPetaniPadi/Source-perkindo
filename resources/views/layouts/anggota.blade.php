@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title> Admin</title>
-    @include('includes.admin.style')
+    <title> Anggota</title>
+    @include('includes.anggota.style')
 
 </head>
 
@@ -19,7 +19,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        @include('includes.admin.sidebar')
+        @include('includes.anggota.sidebar')
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -27,7 +27,7 @@
             <!-- Main Content -->
             <div id="content">
 
-                @include('includes.admin.navbar')
+                @include('includes.anggota.navbar')
 
                 @yield('content')
 
@@ -35,7 +35,7 @@
             </div>
             <!-- End of Main Content -->
 
-            @include('includes.admin.footer')
+            @include('includes.anggota.footer')
 
         </div>
         <!-- End of Content Wrapper -->
@@ -72,7 +72,7 @@
     </div>
 
     @stack('prepend-script')
-    @include('includes.admin.script')
+    @include('includes.anggota.script')
     @stack('addon-script')
 
 </body>

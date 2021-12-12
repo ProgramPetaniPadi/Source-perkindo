@@ -1,8 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\Anggota\LAnggotaController;
+use App\Http\Controllers\Anggota\LoginAnggotaController;
+
+
 
 /* |-------------------------------------------------------------------------- | Web Routes |-------------------------------------------------------------------------- | | Here is where you can register web routes for your application. These | routes are loaded by the RouteServiceProvider within a group which | contains the "web" middleware group. Now create something great! | */
 
@@ -16,8 +20,39 @@ Route::prefix('')
             ->name('informasi');
         Route::get('/showdetail/{id}', '\App\Http\Controllers\DetailBeritaController@showdetail')
             ->name('detail_berita');
+
+        Route::get('/LoginAnggota', [App\Http\Controllers\Anggota\LoginAnggotaController::class , 'index'])
+            ->name('LoginAnggota');
+        Route::get('/anggota', [LoginAnggotaController::class , 'cekLogin'])
+            ->name('pages.anggota.dashboard');
+
     });
 
+
+Route::group(['middleware' => ['AuthCheck']], function () {
+    Route::get('/anggota', [App\Http\Controllers\Anggota\LoginAnggotaController::class , 'cekLogin'])
+        ->name('pages.anggota.dashboard');
+    Route::resource('kta_sbu', '\App\Http\Controllers\Anggota\KtaSbuController');
+    Route::resource('sbu_konstruksi', '\App\Http\Controllers\Anggota\SbuKonstruksiController');
+    Route::resource('sbu_nonkonstruksi', '\App\Http\Controllers\Anggota\SbuNonKonstruksiController');
+    Route::resource('pembayaran_kta_sbu', '\App\Http\Controllers\Anggota\PembayaranKtaSbuController');
+
+});
+// Route::get('/LoginAnggota', [App\Http\Controllers\Anggota\LoginAnggotaController::class , 'index'])
+//     ->name('LoginAnggota');
+
+// Route::prefix('anggota')->name('anggota.')->group(function () {
+//     Route::middleware(['guest:anggota'])->group(function () {
+//             Route::view('/LoginAnggota', 'pages.anggota.LoginAnggota')->name('LoginAnggota');
+//             Route::post('/check', [LAnggotaController::class , 'check'])->name('check');
+//         }
+//         );
+//         Route::middleware(['auth:anggota'])->group(function () {
+//             Route::view('/anggota', 'pages.anggota.dashboard')->name('anggota');
+//             Route::post('/logout', [LAnggotaController::class , 'logout'])->name('logout');
+//         }
+//         );
+//     });
 
 
 
@@ -55,18 +90,20 @@ Route::prefix('admin')
             ->name('data_perusahaan.editkta');
         Route::put('/updatekta/{id}', '\App\Http\Controllers\Admin\DataPerusahaanController@updatekta')
             ->name('data_perusahaan.updatekta');
+        Route::delete('/data_perusahaan/{id}/destroyKta', '\App\Http\Controllers\Admin\DataPerusahaanController@destroyKta')
+            ->name('data_perusahaan.destroyKta');
+
+        Route::resource('tambah_kta', '\App\Http\Controllers\Admin\TambahKtaController');
 
         Route::get('/ubah_password/{id}/editPsw', '\App\Http\Controllers\Admin\ChangePasswordController@index')
             ->name('ubah_password.editPsw');
         Route::put('/ubah_password/{id}', '\App\Http\Controllers\Admin\ChangePasswordController@store')->name('change.password');
 
 
-
-
-
-
     });
 Auth::routes();
+
+
 Route::match (["GET", "POST"], "/register", function () {
     return redirect("/login");
 })->name("register");

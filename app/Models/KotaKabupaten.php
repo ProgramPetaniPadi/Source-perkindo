@@ -20,7 +20,7 @@ class KotaKabupaten extends Model
         return $this->belongsTo(Provinsi::class , 'provinsi_id', 'id');
     }
 
-    public function data_prerusahaan()
+    public function data_perusahaan()
     {
         return $this->hasMany(DataPerussahaan::class , 'kota_kabupaten_id', 'id');
     }

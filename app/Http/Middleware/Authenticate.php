@@ -14,7 +14,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
+            if ($request->routeIs('anggota.*')) {
+                return route('pages.anggota.dashboard');
+            }
             return route('login');
         }
     }

@@ -23,6 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+
+                if ($guard === 'anggota') {
+                    return redirect()->route('pages.anggota.dashboard');
+                }
                 return redirect(RouteServiceProvider::HOME);
             }
         }

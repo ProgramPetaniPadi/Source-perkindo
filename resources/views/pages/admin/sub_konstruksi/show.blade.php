@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <th>Anggota</th>
-                    <td>{{ $item->anggota_id }}</td>
+                    <td>{{ $item->data_perusahaan['nomor_keanggotaan'] }}</td>
                 </tr>
                 <tr>
                     <th>Tanggal Masuk</th>

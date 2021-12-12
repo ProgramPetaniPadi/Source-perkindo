@@ -128,7 +128,7 @@ class DataPerusahaanController extends Controller
     public function show($id)
     {
         $item = DataPerusahaan::findOrFail($id);
-        $kta = Kta::findOrFail($id);
+        $kta = Kta::where('anggota_id', $id)->get();
         $provinsi = Provinsi::all();
         $kota_kabupaten = KotaKabupaten::all();
         return view('pages.admin.data_perusahaan.show', [
@@ -194,7 +194,7 @@ class DataPerusahaanController extends Controller
         $data_perusahaan->telepon_telex_fax = $request->get('telepon_telex_fax');
         $data_perusahaan->no_hp_1 = $request->get('no_hp_1');
         $data_perusahaan->no_hp_2 = $request->get('no_hp_2');
-        $data_perusahaan->password = $request->get('password');
+        $data_perusahaan->password = Hash::make($request->get('password'));
         $data_perusahaan->email = $request->get('email');
 
         if ($request->file('logo')) {
@@ -267,5 +267,13 @@ class DataPerusahaanController extends Controller
         $item->delete();
 
         return redirect()->route('data_perusahaan.index');
+    }
+
+    public function destroyKta($id)
+    {
+        $item = Kta::findOrfail($id);
+        $item->delete();
+        return redirect()->back()->with('success', 'KTA perusahaan berhasil dihapus!');
+    // return redirect()->route('data_perusahaan.show.$id');
     }
 }

@@ -53,12 +53,12 @@
                                     data-toggle="tooltip" title="edit perusahaan!" data-placement="top">
                                     <i class="fa fa-pencil-alt"></i>
                                 </a>
-                                <a href="{{ route('data_perusahaan.editkta', $item->id) }}" class="btn btn-info"
-                                    data-toggle="tooltip" title="edit KTA!" data-placement="top">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </a>
                                 <a href="{{ route('data_perusahaan.show', $item->id) }}" class="btn btn-info">
                                     <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="{{ route('tambah_kta.edit', $item->id) }}" class="btn btn-info"
+                                    data-toggle="tooltip" title="tambah KTA!" data-placement="top">
+                                    <i class="fas fa-plus"></i>
                                 </a>
 
 

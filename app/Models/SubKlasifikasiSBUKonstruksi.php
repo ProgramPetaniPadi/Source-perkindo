@@ -10,7 +10,7 @@ class SubKlasifikasiSBUKonstruksi extends Model
     use HasFactory;
     protected $table = "sub_klasifikasi_sbu_konstruksi";
     protected $fillable = [
-        'klasifikasi_sbu_konstruksi_id ',
+        'klasifikasi_sbu_konstruksi_id',
         'kode',
         'sub_klasifikasi',
         'lingkup_pekerjaan',

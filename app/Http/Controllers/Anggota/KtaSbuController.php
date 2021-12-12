@@ -1,33 +1,31 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Anggota;
 
-use App\Models\Berita;
-use App\Models\DataPengurus;
-use Illuminate\Http\Request;
-use App\Models\KotaKabupaten;
-use App\Models\DataPerusahaan;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\DataPerusahaan;
+use App\Models\LoginAnggota;
+use App\Models\Kta;
+use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class KtaSbuController extends Controller
 {
-    /** 
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /**
+     * Change the current password
+     * @param Request $request
+     * @return Renderable
      */
     public function index()
     {
-        $anggota = DataPerusahaan::get()->count();
-        $pengurus = DataPengurus::get()->count();
-        $kota_kabupaten = KotaKabupaten::get()->count();
-        $berita = Berita::get()->count();
-        return view('pages.admin.dashboard', [
-            'anggota' => $anggota, 'pengurus' => $pengurus,
-            'kota_kabupaten' => $kota_kabupaten, 'berita' => $berita
+        $anggota = ['LoggedUserInfo' => LoginAnggota::where('id', '=', session('LoggedUser'))->first()];
+        $anggota = LoginAnggota::where('id', '=', session('LoggedUser'))->first();
 
 
-        ]);
+        // dd($anggota);
+        $kta = kta::all();
+
+        return view('pages.anggota.kta_sbu.index', $anggota, ['kta' => $kta]);
     }
 
     /**

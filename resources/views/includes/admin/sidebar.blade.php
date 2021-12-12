@@ -10,13 +10,14 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item {{ request()->is('admin') ?'active' : '' }}">
         <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
 
-    <li class="nav-item">
+    <li
+        class="nav-item {{ request()->is('admin/agama') || request()->is('admin/rekening') || request()->is('admin/jabatan') || request()->is('admin/data_pengurus') ?'active' : '' }}">
         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapsePengurus"
             aria-expanded="true" aria-controls="collapsePengurus">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

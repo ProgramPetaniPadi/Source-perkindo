@@ -66,6 +66,25 @@
                     <input type="file" class="form-control-file" name="foto" id="foto">
                 </div>
 
+                <div class="form-group">
+                    <label for="klasifikasi_sbu_konstruksi_id">KLasifikasi</label>
+                    <select name="klasifikasi_sbu_konstruksi_id" required class="form-control">
+                        <option value="">....Pilih Klasifikasi....</option>
+                        @foreach ($klasifikasi as $klasifikasi)
+                        <option value="{{ $klasifikasi->id  }}">
+                            {{ $klasifikasi->klasifikasi }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="klasifikasi_sbu_konstruksi_id">Select sub klasifikasi:</label>
+                    <select name="sub_klasifikasi" class="form-control" style="width:350px">
+                    </select>
+                </div>
+
 
                 <button type="submit" class="btn btn-primary btn-block">
                     Simpan Data
@@ -78,3 +97,34 @@
 </div>
 <!-- /.container-fluid -->
 @endsection
+
+@push('addon-script')
+<script type="text/javascript">
+$(document).ready(function() {
+    $('select[name="klasifikasi_sbu_konstruksi_id"]').on('change', function() {
+        var stateID = $(this).val();
+        if (stateID) {
+            $.ajax({
+                url: '/myform/ajax/' + stateID,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+
+                    $('select[name="sub_klasifikasi"]').empty();
+                    $.each(data, function(key, value) {
+                        $('select[name="sub_klasifikasi"]').append(
+                            '<option value="' + key +
+                            '">' + value + '</option>');
+                    });
+
+
+                }
+            });
+        } else {
+            $('select[name="sub_klasifikasi"]').empty();
+        }
+    });
+});
+</script>
+@endpush

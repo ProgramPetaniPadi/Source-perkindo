@@ -33,4 +33,9 @@ class DataPerusahaan extends Model
         return $this->hasMany(SubKonstruksi::class , 'anggota_id', 'id');
     }
 
+    public function kta()
+    {
+        return $this->hasMany(Kta::class , 'anggota_id', 'id');
+    }
+
 }
